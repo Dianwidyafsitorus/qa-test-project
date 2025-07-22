@@ -1,0 +1,104 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-5678-9101-1121-314151617181",
+    "name": "API Automation Test Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "🔐 POST /login - valid credentials",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"email\": \"test@example.com\", \"password\": \"123456\" }"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["login"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test(\"Status code is 200\", () => pm.response.code === 200);",
+            "pm.test(\"Response has token\", () => pm.response.json().hasOwnProperty('token'));"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "🔐 POST /login - invalid credentials",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"email\": \"test@example.com\", \"password\": \"wrong\" }"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["login"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test(\"Status code is 401\", () => pm.response.code === 401);",
+            "pm.test(\"Message is 'Invalid credentials'\", () => pm.response.json().message === 'Invalid credentials');"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "📦 GET /items",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/items",
+          "host": ["{{baseUrl}}"],
+          "path": ["items"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test(\"Status code is 200\", () => pm.response.code === 200);",
+            "pm.test(\"Body is an array\", () => Array.isArray(pm.response.json()));"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "📦 POST /items - create item",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"name\": \"New Item\", \"description\": \"New Desc\" }"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/items",
+          "host": ["{{baseUrl}}"],
+          "path": ["items"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test(\"Status code is 201\", () => pm.response.code === 201);",
+            "pm.test(\"Item created\", () => pm.response.json().name === 'New Item');"
+          ]
+        }
+      }]
+    }
+  ]
+}
