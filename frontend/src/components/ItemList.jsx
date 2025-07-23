@@ -1,19 +1,37 @@
-function ItemList({ items, onEdit, onDelete }) {
+// src/components/ItemList.jsx
+import './ItemList.css';
+
+export default function ItemList({ items, onEdit, onDelete }) {
+  if (!items.length) {
+    return <p className="empty-message">No items yet.</p>;
+  }
+
   return (
-    <div>
-      <h2>Item List</h2>
-      {items.length === 0 && <p>No items yet.</p>}
+    <div className="item-list">
       {items.map((item) => (
-        <div className="item" key={item._id}>
-          <span>{item.name}</span>
+        <div className="item-card" key={item.id} data-cy={`item-${item.id}`}>
           <div>
-            <button onClick={() => onEdit(item)} style={{ marginRight: '0.5rem' }}>Edit</button>
-            <button onClick={() => onDelete(item._id)} style={{ backgroundColor: '#f44336' }}>Delete</button>
+            <h3>{item.name}</h3>
+            <p>{item.description}</p>
+          </div>
+          <div className="actions">
+            <button
+              className="edit-btn"
+              onClick={() => onEdit(item)}
+              data-cy={`edit-button-${item.id}`}
+            >
+              Edit
+            </button>
+            <button
+              className="delete-btn"
+              onClick={() => onDelete(item.id)}
+              data-cy={`delete-button-${item.id}`}
+            >
+              Delete
+            </button>
           </div>
         </div>
       ))}
     </div>
   );
 }
-
-export default ItemList;

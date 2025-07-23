@@ -1,80 +1,61 @@
+// src/pages/ItemPage.jsx
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ItemForm from './ItemForm';
-import ItemList from './ItemList';
+import { getItems, createItem, updateItem, deleteItem } from '../api/api';
+import ItemList from '../components/ItemList';
+import ItemForm from '../components/ItemForm';
+import './ItemPage.css';
 
 function ItemPage() {
   const [items, setItems] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const navigate = useNavigate();
-
-  const token = localStorage.getItem('token');
+  const [editItem, setEditItem] = useState(null);
 
   useEffect(() => {
-    if (!token) {
-      navigate('/');
-      return;
-    }
-    fetchItems();
+    loadItems();
   }, []);
 
-  const fetchItems = async () => {
-    const res = await fetch('http://localhost:3000/items', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await res.json();
-    setItems(data);
+  const loadItems = async () => {
+    try {
+      const res = await getItems();
+      setItems(res.data);
+    } catch (err) {
+      console.error('Failed to load items:', err);
+    }
   };
 
-  const handleAddOrUpdate = async (itemData) => {
-    if (selectedItem) {
-      // update
-      await fetch(`http://localhost:3000/items/${selectedItem._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(itemData),
-      });
-    } else {
-      // create
-      await fetch('http://localhost:3000/items', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(itemData),
-      });
-    }
-    setSelectedItem(null);
-    fetchItems();
+  const handleCreate = async (data) => {
+    const res = await createItem(data);
+    setItems([...items, res.data]);
+  };
+
+  const handleUpdate = async (data) => {
+    const res = await updateItem(data.id, data);
+    const updated = items.map((item) =>
+      item.id === data.id ? res.data : item
+    );
+    setItems(updated);
+    setEditItem(null);
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:3000/items/${id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    fetchItems();
+    await deleteItem(id);
+    setItems(items.filter((item) => item.id !== id));
+  };
+
+  const handleEditClick = (item) => {
+    setEditItem(item);
   };
 
   return (
-    <div>
-      <h2>Items Management</h2>
+    <div className="item-page">
+      <h1>Item Manager</h1>
       <ItemForm
-        onSubmit={handleAddOrUpdate}
-        selectedItem={selectedItem}
-        onCancel={() => setSelectedItem(null)}
+        onCreate={handleCreate}
+        onUpdate={handleUpdate}
+        editItem={editItem}
       />
       <ItemList
         items={items}
-        onEdit={(item) => setSelectedItem(item)}
+        onEdit={handleEditClick}
         onDelete={handleDelete}
       />
     </div>

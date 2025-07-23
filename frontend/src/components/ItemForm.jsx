@@ -1,39 +1,58 @@
-import { useState, useEffect } from 'react';
+// src/components/ItemForm.jsx
+import { useEffect, useState } from 'react';
+import './ItemForm.css';
 
-function ItemForm({ onSubmit, selectedItem, onCancel }) {
+export default function ItemForm({ onCreate, onUpdate, editItem }) {
   const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
 
+  // Jika editItem berubah, isi form-nya
   useEffect(() => {
-    if (selectedItem) {
-      setName(selectedItem.name);
+    if (editItem) {
+      setName(editItem.name);
+      setDescription(editItem.description);
     } else {
       setName('');
+      setDescription('');
     }
-  }, [selectedItem]);
+  }, [editItem]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ name });
+    const data = { name, description };
+
+    if (editItem) {
+      onUpdate({ ...editItem, ...data });
+    } else {
+      onCreate(data);
+    }
+
+    // Reset form setelah submit
     setName('');
+    setDescription('');
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="item-form" onSubmit={handleSubmit}>
+      <h2>{editItem ? 'Edit Item' : 'Add New Item'}</h2>
       <input
         type="text"
         placeholder="Item name"
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
+        data-cy="item-name"
       />
-      <button type="submit">{selectedItem ? 'Update' : 'Add'} Item</button>
-      {selectedItem && (
-        <button type="button" onClick={onCancel} style={{ backgroundColor: '#ccc', marginTop: '0.5rem' }}>
-          Cancel
-        </button>
-      )}
+      <textarea
+        placeholder="Item description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        rows="3"
+        data-cy="item-description"
+      />
+      <button type="submit" data-cy="item-submit">
+        {editItem ? 'Update Item' : 'Add Item'}
+      </button>
     </form>
   );
 }
-
-export default ItemForm;

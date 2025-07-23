@@ -1,0 +1,16 @@
+/* src/pages/ItemPage.css */
+.item-page {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fafafa;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  font-family: sans-serif;
+}
+
+.item-page h1 {
+  text-align: center;
+  color: #1976d2;
+  margin-bottom: 30px;
+}

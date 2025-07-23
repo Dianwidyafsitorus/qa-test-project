@@ -1,0 +1,38 @@
+/* src/components/ItemForm.css */
+.item-form {
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.item-form h2 {
+  margin-bottom: 15px;
+  color: #444;
+  font-size: 18px;
+}
+
+.item-form input,
+.item-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.item-form button {
+  padding: 10px 16px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.item-form button:hover {
+  background-color: #125ca1;
+}
