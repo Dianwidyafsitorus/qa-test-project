@@ -45,13 +45,14 @@ This project tests both **frontend** and **backend** functionality for a full-st
 
 ```bash
 # Interactive mode
+start the react app: on terminal navigate to frontend folder -> npm run dev
+start backend: 0n terminal navigate to backend folder -> node index.js
+
+on terminal navigate to frontend folder:
 npx cypress open
-<img width="1502" height="858" alt="image" src="https://github.com/user-attachments/assets/105a7e4a-ce5a-4675-9498-f05b0ebe00c5" />
+![Cypress Test Screenshot](.assets/npx cypress open.png)
+
 - running test cases auth
-<img width="1497" height="815" alt="image" src="https://github.com/user-attachments/assets/bc92f0d3-19e2-4521-98de-c36054741000" />
-- running test cases view, create, update, delete
-<img width="1506" height="851" alt="Screenshot 2025-07-23 at 21 45 07" src="https://github.com/user-attachments/assets/60dc890a-c823-41c6-ac02-8d713ab9abc8" />
-<img width="1505" height="851" alt="image" src="https://github.com/user-attachments/assets/2e0f2652-77d3-4545-9dd0-ea44346b1743" />
 
 
 # Headless run
