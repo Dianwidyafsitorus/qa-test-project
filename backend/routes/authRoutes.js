@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 
-// Dummy user (harus sama dengan index.js sebelumnya)
+// Dummy user
 const USER = { email: 'test@example.com', password: '123456' };
 
 // POST /login
