@@ -13,7 +13,7 @@ describe('Edit Item', () => {
       description: 'Updated description by Cypress',
     };
 
-    // Asumsi item dengan id 1 ada — bisa disesuaikan
+    // Click button edit
     cy.get('[data-cy=edit-button-2]').click();
 
     // Clear & update input
@@ -21,7 +21,7 @@ describe('Edit Item', () => {
     cy.get('[data-cy=item-description]').clear().type(updatedItem.description);
     cy.get('[data-cy=item-submit]').click();
 
-    // Verifikasi bahwa item sudah ter-update
+    // Verifikasi item updated
     cy.contains('.item-card', updatedItem.name).should('exist');
     cy.contains('.item-card', updatedItem.description).should('exist');
   });

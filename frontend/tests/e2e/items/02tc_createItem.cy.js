@@ -13,12 +13,12 @@ describe('Create Item', () => {
       description: 'This is a test item created by Cypress',
     };
 
-    // Isi form tambah item
+    // fill form add item
     cy.get('[data-cy=item-name]').type(newItem.name);
     cy.get('[data-cy=item-description]').type(newItem.description);
     cy.get('[data-cy=item-submit]').click();
 
-    // Verifikasi bahwa item baru muncul di daftar
+    // Verify new item showing on list
     cy.contains('.item-card', newItem.name).should('exist');
     cy.contains('.item-card', newItem.description).should('exist');
   });
