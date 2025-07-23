@@ -1,73 +1,100 @@
-🧪 TEST_PLAN.md
-1. ✅ What is Being Tested
-This project consists of a React frontend and a Node.js backend for a simple item management application with login functionality. The following aspects are covered:
+# 🧪 Test Plan / QA Strategy
 
-User Authentication
+## ✅ What Is Being Tested
 
-Login with valid/invalid credentials
+This project tests both **frontend** and **backend** functionality for a full-stack CRUD application.
 
-Item CRUD Functionality
+### 1. Backend API
+- User login authentication
+- Item operations: View, Create, Update, Delete
 
-Viewing a list of items
+### 2. Frontend UI
+- Login form flow
+- Item list display
+- Functional item operations via UI (create/edit/delete)
 
-Creating new items
+---
 
-Editing existing items
+## 📂 Test Coverage Areas
 
-Deleting items
+| Component     | Feature           | Test Type         | Tool       |
+|---------------|-------------------|-------------------|------------|
+| Auth API      | Login             | API Unit Test     | Supertest  |
+| Items API     | CRUD operations   | API Unit Test     | Supertest  |
+| Login UI      | Form validation   | UI E2E Test       | Cypress    |
+| Dashboard UI  | Item list display | UI Functional Test| Cypress    |
+| Item actions  | Create/Edit/Delete| UI Functional Test| Cypress    |
+
+---
+
+## 🛠️ Tools Used and Why
+
+| Tool          | Purpose                      | Reason                                                                 |
+|---------------|------------------------------|------------------------------------------------------------------------|
+| **Cypress**   | End-to-End UI Testing        | Fast, reliable browser-based tests simulating real user behavior       |
+| **Supertest** | API Testing                  | Lightweight, easily integrates with Node.js API tests                  |
+| **Jest**      | Test Runner                  | Simple and fast framework for assertions, mocking, and coverage        |
+| **nyc**       | Code Coverage for Backend    | Generates test coverage reports via CLI                                |
+| **GitHub Actions** | Continuous Integration | Runs tests automatically on push/PR to ensure stability                |
+
+---
+
+## ▶️ How to Run the Tests
+
+### Frontend E2E (Cypress)
+
+```bash
+# Interactive mode
+npx cypress open
+<img width="1502" height="858" alt="image" src="https://github.com/user-attachments/assets/105a7e4a-ce5a-4675-9498-f05b0ebe00c5" />
+- running test cases auth
+<img width="1497" height="815" alt="image" src="https://github.com/user-attachments/assets/bc92f0d3-19e2-4521-98de-c36054741000" />
+- running test cases view, create, update, delete
+<img width="1506" height="851" alt="Screenshot 2025-07-23 at 21 45 07" src="https://github.com/user-attachments/assets/60dc890a-c823-41c6-ac02-8d713ab9abc8" />
+<img width="1505" height="851" alt="image" src="https://github.com/user-attachments/assets/2e0f2652-77d3-4545-9dd0-ea44346b1743" />
 
 
-2. 📌 Test Coverage Areas
-Layer	Type of Test	Tool	Status
-Backend API	Integration tests	Supertest	✅ Done
-Frontend	Functional UI tests	Cypress	✅ Done
-CI Pipeline	Automated test run	GitHub Actions	✅ Done
+# Headless run
+npx cypress run --e2e
+result:
+<img width="736" height="266" alt="image" src="https://github.com/user-attachments/assets/ff3f1acd-0a97-4ddc-9a9f-dfabaffac478" />
 
-Each CRUD operation and login feature has been split into its own Cypress test file to ensure modularity and clarity.
 
-3. 🛠️ Tools Used and Why
-Tool	Purpose
-Cypress	E2E & UI testing (React app)
-Supertest	API testing (Node.js backend)
-Jest	Test runner for backend API
-GitHub Actions	CI to run tests on push/pull reqs
+```
 
-These tools were chosen for their ease of setup, strong documentation, and community support for modern JS apps.
-
-4. ▶️ How to Run the Tests
-🧪 Backend API Tests
-bash
-Salin
-Edit
-# From the root
-cd backend
+### 🔧 Backend API Tests (Jest + Supertest)
+```bash
+cd backend/
 npm install
 npm test
-💻 Frontend Cypress Tests (UI)
-bash
-Salin
-Edit
-cd frontend
-npm install
-npx cypress open    # Interactive GUI
-npx cypress run     # Headless run (CI-compatible)
-🪄 Run CI Pipeline
-The tests automatically run on every push or pull_request via GitHub Actions:
+<img width="1027" height="488" alt="image" src="https://github.com/user-attachments/assets/3a7ddfcc-02bf-4e80-bb80-47df7e450546" />
 
-yaml
-Salin
-Edit
-.github/workflows/ci.yml
+```
 
+## 🚀 GitHub Actions (CI/CD)
+Tests are automatically triggered on every push and pull request:
+Frontend: Runs Cypress in headless mode
+Backend: Runs Jest + Supertest for API testing
 
-5. ⚠️ Assumptions and Limitations
-User credentials test@example.com / 123456 are assumed to exist in the test DB.
+All test jobs must pass before merging into the main branch.
 
-Backend must be running locally on http://localhost:3000 when testing frontend.
+## ⚠️ Assumptions and Limitations
+#### Environment:
+Frontend runs at: http://localhost:5173
+Backend runs at: http://localhost:3000
 
-Tests are not currently mocking backend APIs; they rely on a live server.
+#### Database is persistent:
+Tests may conflict if run repeatedly without resetting data.
 
-No visual regression or performance testing included (optional extensions).
+#### Test data dependencies:
+Tests use static IDs (e.g., item-1). If the dataset changes, tests may fail.
 
-Basic error handling is tested, but no advanced validations or security tests (e.g., XSS) are implemented yet.
+#### No mocking/stubbing:
+All tests hit real API endpoints.
+
+#### Tests not parallelized:
+All tests run sequentially; no sharding or parallel runners used.
+
+#### Static login credentials:
+Uses test@example.com / 123456 for all login flows.
 
