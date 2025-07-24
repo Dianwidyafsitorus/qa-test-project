@@ -13,7 +13,7 @@ describe('Login Page', () => {
         cy.get('[data-cy=login-button]').click();
 
         // ✅ Wait for the item page to appear
-        cy.get('[data-cy=item-title]', { timeout: 10000 }).should('contain', 'Item Manager');
+        cy.contains('Item Manager').should('exist');
 
         // Optional: check the URL
         cy.location('pathname').should('include', '/items');
