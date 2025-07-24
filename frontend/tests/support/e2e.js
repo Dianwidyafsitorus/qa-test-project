@@ -1,7 +1,4 @@
-// cypress/support/e2e.js
+import './commands';
+import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 
-// Import commands.js using ES2015 syntax:
-import './commands'
-
-// Or you can use CommonJS syntax:
-// require('./commands')
+addMatchImageSnapshotCommand();
