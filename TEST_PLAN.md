@@ -39,7 +39,7 @@ This project tests both **frontend** and **backend** functionality for a full-st
 
 ---
 
-## ▶️ How to Run the Tests
+## ▶️ How to Run the Tests on Local
 
 ### Frontend E2E (Cypress)
 
@@ -57,10 +57,6 @@ assets/npx-cypress-open.png
 
 # Headless run
 npx cypress run --env updateSnapshots=true
-result:
-<img width="736" height="266" alt="image" src="https://github.com/user-attachments/assets/ff3f1acd-0a97-4ddc-9a9f-dfabaffac478" />
-
-
 ```
 
 ### 🔧 Backend API Tests (Jest + Supertest)
@@ -78,6 +74,7 @@ Frontend: Runs Cypress in headless mode
 Backend: Runs Jest + Supertest for API testing
 
 All test jobs must pass before merging into the main branch.
+You can see the result in action github this repository
 
 ## ⚠️ Assumptions and Limitations
 #### Environment:
@@ -98,4 +95,7 @@ All tests run sequentially; no sharding or parallel runners used.
 
 #### Static login credentials:
 Uses test@example.com / 123456 for all login flows.
+
+Tester Name:
+Dian Widya Febrianti Sitorus
 
