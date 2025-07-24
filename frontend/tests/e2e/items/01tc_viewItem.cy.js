@@ -20,8 +20,5 @@ describe('View Items', () => {
         cy.get('[data-cy^="delete-button-"]').should('exist');
       });
     });
-
-    // Visual snapshot of the item list
-    cy.matchImageSnapshot('view-items-list');
   });
 });

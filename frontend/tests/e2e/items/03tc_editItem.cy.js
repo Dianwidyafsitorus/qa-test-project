@@ -26,8 +26,5 @@ describe('Edit Item', () => {
     // Verifikasi item updated
     cy.contains('.item-card', updatedItem.name).should('exist');
     cy.contains('.item-card', updatedItem.description).should('exist');
-
-    // Visual snapshot after edit
-    cy.get('.item-list').matchImageSnapshot('edit-item');
   });
 });

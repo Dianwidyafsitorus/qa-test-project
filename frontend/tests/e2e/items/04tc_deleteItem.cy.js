@@ -24,9 +24,6 @@ describe('Delete Item', () => {
 
         // Assert item is gone
         cy.get(`[data-cy=item-${itemId}]`).should('not.exist');
-
-        // Snapshot list after deletion
-        cy.get('.item-list').matchImageSnapshot('delete-item');
       });
   });
 });

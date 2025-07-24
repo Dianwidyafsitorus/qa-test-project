@@ -16,7 +16,8 @@ jobs:
         working-directory: backend
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -38,7 +39,8 @@ jobs:
         working-directory: frontend
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -56,11 +58,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cypress-screenshots
-          path: cypress/screenshots/
-
-      - name: Upload snapshot diffs
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: visual-snapshots-diff
-          path: cypress/snapshots/**/__diff_output__/
+          path: frontend/cypress/screenshots/

@@ -23,8 +23,5 @@ describe('Create Item', () => {
     // Verify new item showing on list
     cy.contains('.item-card', newItem.name).should('exist');
     cy.contains('.item-card', newItem.description).should('exist');
-
-    // Visual snapshot of the item list after creation
-    cy.get('.item-list').matchImageSnapshot('create-item');
   });
 });

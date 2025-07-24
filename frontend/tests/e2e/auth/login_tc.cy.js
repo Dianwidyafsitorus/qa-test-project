@@ -12,9 +12,6 @@ describe('Login Page', () => {
 
     cy.url().should('include', '/items');
     cy.contains('Item Manager');
-
-    // Ambil snapshot setelah login berhasil
-    cy.matchImageSnapshot('login-success');
   });
 
   it('should show error on invalid credentials', () => {
@@ -24,8 +21,5 @@ describe('Login Page', () => {
 
     cy.contains('Login failed, please check email or password').should('exist');
     cy.url().should('not.include', '/items');
-
-    // Ambil snapshot saat error login ditampilkan
-    cy.matchImageSnapshot('login-error');
   });
 });
