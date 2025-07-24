@@ -15,7 +15,7 @@ describe('Login Page', () => {
         // ✅ Wait for the item page to appear
         cy.contains('Item Manager').should('exist');
 
-        // Optional: check the URL
+        // check the URL
         cy.location('pathname').should('include', '/items');
     });
 
