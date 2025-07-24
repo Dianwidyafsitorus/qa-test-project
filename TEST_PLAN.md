@@ -50,7 +50,7 @@ start backend: 0n terminal navigate to backend folder -> node index.js
 
 on terminal navigate to frontend folder:
 npx cypress open
-![Cypress Test Screenshot](https://github.com/Dianwidyafsitorus/qa-test-project/blob/main/assets/npx-cypress-open.png)
+assets/npx-cypress-open.png
 
 - running test cases auth
 
