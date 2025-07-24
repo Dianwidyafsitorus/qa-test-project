@@ -47,19 +47,22 @@ function ItemPage() {
 
   return (
     <div className="item-page">
-      <h1>Item Manager</h1>
+      <h1 data-cy="item-title">Item Manager</h1>
       <ItemForm
         onCreate={handleCreate}
         onUpdate={handleUpdate}
         editItem={editItem}
       />
-      <ItemList
-        items={items}
-        onEdit={handleEditClick}
-        onDelete={handleDelete}
-      />
+      <div data-cy="item-list">
+        <ItemList
+          items={items}
+          onEdit={handleEditClick}
+          onDelete={handleDelete}
+        />
+      </div>
     </div>
   );
+
 }
 
 export default ItemPage;
