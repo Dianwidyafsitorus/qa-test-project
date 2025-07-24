@@ -10,6 +10,7 @@ describe('Login Page', () => {
     cy.get('[data-cy=password-input]').type('123456');
     cy.get('[data-cy=login-button]').click();
 
+    cy.url({ timeout: 10000 }).should('include', '/items');
     cy.url().should('include', '/items');
     cy.contains('Item Manager');
   });
