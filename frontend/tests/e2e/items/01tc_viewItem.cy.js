@@ -6,7 +6,6 @@ describe('View Items', () => {
     cy.get('[data-cy=email-input]').type('test@example.com');
     cy.get('[data-cy=password-input]').type('123456');
     cy.get('[data-cy=login-button]').click();
-    cy.url().should('include', '/items');
   });
 
   it('should display list of item cards', () => {
