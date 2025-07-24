@@ -54,7 +54,6 @@ assets/npx-cypress-open.png
 
 - running test cases auth
 
-
 # Headless run
 npx cypress run --env updateSnapshots=true
 ```
@@ -64,8 +63,6 @@ npx cypress run --env updateSnapshots=true
 cd backend/
 npm install
 npm test
-<img width="1027" height="488" alt="image" src="https://github.com/user-attachments/assets/3a7ddfcc-02bf-4e80-bb80-47df7e450546" />
-
 ```
 
 ## 🚀 GitHub Actions (CI/CD)
