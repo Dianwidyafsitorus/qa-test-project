@@ -1,3 +1,5 @@
+// tests/e2e/editItem.cy.js
+
 describe('Edit Item', () => {
   beforeEach(() => {
     cy.visit('http://localhost:5173');
@@ -24,5 +26,8 @@ describe('Edit Item', () => {
     // Verifikasi item updated
     cy.contains('.item-card', updatedItem.name).should('exist');
     cy.contains('.item-card', updatedItem.description).should('exist');
+
+    // Visual snapshot after edit
+    cy.get('.item-list').matchImageSnapshot('edit-item');
   });
 });

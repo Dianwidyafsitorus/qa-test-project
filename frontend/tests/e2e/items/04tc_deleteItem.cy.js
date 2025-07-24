@@ -1,3 +1,5 @@
+// tests/e2e/deleteItem.cy.js
+
 describe('Delete Item', () => {
   beforeEach(() => {
     cy.visit('http://localhost:5173');
@@ -8,10 +10,10 @@ describe('Delete Item', () => {
   });
 
   it('should delete an item successfully', () => {
-    // Ensure the item exists by name instead of hardcoded ID (optional)
+    // Ensure the item exists by name
     cy.contains('[data-cy^=item-]', 'Test Item 123').should('exist').as('targetItem');
 
-    // Get the dynamic item ID from data-cy attribute
+    // Get dynamic item ID from data-cy attribute
     cy.get('@targetItem')
       .invoke('attr', 'data-cy')
       .then((dataCy) => {
@@ -22,6 +24,9 @@ describe('Delete Item', () => {
 
         // Assert item is gone
         cy.get(`[data-cy=item-${itemId}]`).should('not.exist');
+
+        // Snapshot list after deletion
+        cy.get('.item-list').matchImageSnapshot('delete-item');
       });
   });
 });
