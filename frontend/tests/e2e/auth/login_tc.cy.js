@@ -10,6 +10,10 @@ describe('Login Page', () => {
     cy.get('[data-cy=password-input]').type('123456');
     cy.get('[data-cy=login-button]').click();
 
+    cy.wait(2000);
+      cy.url().then(url => {
+          cy.log('Current URL is', url);
+      });
     // wait until redirect to item list page
     cy.url({ timeout: 10000 }).should('include', '/items');
 
