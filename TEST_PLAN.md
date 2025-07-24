@@ -56,7 +56,7 @@ npx cypress open
 
 
 # Headless run
-npx cypress run --e2e
+npx cypress run --env updateSnapshots=true
 result:
 <img width="736" height="266" alt="image" src="https://github.com/user-attachments/assets/ff3f1acd-0a97-4ddc-9a9f-dfabaffac478" />
 
