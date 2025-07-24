@@ -7,70 +7,61 @@ on:
     branches: [ main ]
 
 jobs:
-  backend-tests:
-    name: Run Backend API Tests
+  run-tests:
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: backend
+    services:
+      mongo:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node.js (backend)
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
 
-      - name: Install backend dependencies
-        run: npm ci
-
-      - name: Run backend tests
-        run: npm test
-
-  frontend-tests:
-    name: Run Cypress E2E Tests
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      # Start backend
-      - name: Install backend dependencies
+      - name: Install Backend Dependencies
         working-directory: backend
         run: npm ci
 
-      - name: Start backend server
+      - name: Start Backend Server in Background
         working-directory: backend
-        run: npm start &
+        run: |
+          npm start &
       
-      # Wait for backend to be ready
       - name: Wait for backend to be ready
         run: npx wait-on http://localhost:3000/health
 
-      # Install frontend & run Cypress
-      - name: Install frontend dependencies
+      - name: Run Backend Tests
+        working-directory: backend
+        run: npm test
+
+      - name: Setup Node.js (frontend)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Frontend Dependencies
         working-directory: frontend
         run: npm ci
 
-      - name: Install test server util
+      - name: Start Frontend in Background
         working-directory: frontend
-        run: npm install --save-dev start-server-and-test
+        run: |
+          npm run dev &
+      
+      - name: Wait for frontend to be ready
+        run: npx wait-on http://localhost:5173
 
-      - name: Run Cypress E2E tests
+      - name: Run Cypress Tests
         working-directory: frontend
         run: npm run test:e2e
 
-      - name: Upload Cypress screenshots (on failure)
+      - name: Upload Cypress screenshots on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
